@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>[UNITY3D]</title>
+      <!-- ... -->
+      <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+      <!-- foster -->
+
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="footer, address, phone, icons" />
+
+      <title>Footer With Address And Phones</title>
+
+      <link rel="stylesheet" href="foster/css/demo.css">
+      <link rel="stylesheet" href="foster/css/footer-distributed-with-address-and-phones.css">
+      
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+      <link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
+
+
+   </head>
+   <body>
+      <nav class="navbar navbar-default" role="navigation">
+         <div class="container-fluid">
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+               <a class="navbar-brand" style = "font-family: Impact" href="index.html">IT Blog</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav">
+                  <li class="dropdown">
+                     <a href="http://localhost/blogWebsite/category/category" class="dropdown-toggle" data-toggle="dropdown">Category <span class="caret"></span></a>
+                     <ul class="dropdown-menu">
+                        <li><a href="javascript.html">JavaScript</a></li>
+                        <li><a href="python.html">Python</a></li>
+                     </ul>
+                  </li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right">
+                  <li data-toggle="modal" data-target="#boxSearch"><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right">
+                  <li ><a href="login.html">Sign In</a></li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right">
+                  <li ><a href="register.html">Register</a></li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+      <div class="container">
+         <div class="row">
+            <h1>[Unity3D] Things you often see in online demos, but it's best not to use them</h1>
+            <!-- <p><img src='http://localhost:8080/blogWebsite/upload/2019/05/06/parisarc9.jpg' alt='url_thumb'></p> -->
+            <div class="body-post">
+               <h3>1. Divine Object.Find () statement</h3>
+               
+This API is too familiar, so everyone knows, you can read it here. Its use is to find GameObject on the scene parameter is the name of the object.
+               <br><br>
+               <br>
+               
+For example, here, I want to "get" the Player object:
+               <br><br>
+               <img src="images/1.png" alt="">
+               <br><br>
+               <img src="findUnity.JPG" alt="">
+               <br>
+               
+The mentality of a newcomer to Unity is usually "father UI, so strong !! It is fast and convenient.
+               <br><br>
+               <h3>Where's the bad API?</h3>
+               <br>
+               <ul>
+                  <li>In general, the script above it is "tied up" to the scene, is not usable again, because if the other scene has no object with the name "Player" then it is.</li>
+                  <li>This is a "heavy" API, and the amount of objects in the scene increases, which means running this api slowly. I used to work with a guy, specializing in this api in Update (), turning on the profiler always felt pretty bad for that script.</li>
+                  <li>Designer is a setup scene, no one will know that they have to name the object in the game exactly as you did in the script.</li>
+
+               </ul>
+               <br><br>
+               <h3>Alternative solution ?</h3>
+               <br><br>
+               <p>Actually the source of this API is to solve the problem: hook up, save "reference" to objects in the scene to handle, this is a perpetual problem when making games with Unity.</p>
+               <ul>
+                     <li>Using a GameObject field in the script and dragging and dropping in the Inspector is also a good solution. Each object in the scene has a unique and unique ID (if anyone opens the scene file with notepad), in this way, the script will store the ID to the object, reference to the object that will be loaded when Unity loads the scene.</li>
+                     <p><img src="images/2.png" alt=""></p>
+                     <li>If you need a better solution for "Communication" between objects in the game, or try ObserverPattern.</li>
+                  </ul>
+               <h3>
+                     2. Set heavy tasks in Update () function</h3>
+               <br>
+               
+Sometimes people can see the GetComponent (), RayCast () ... functions set in Update (), FixedUpdate (). These are quite heavy tasks, often slowing down the game. It's best to cache all reusable components, and then use them in Update (). This dish is sure many people met in the article "Best Practice" online
+               <br><br>
+               <img src="updateFunction.JPG" alt="">
+
+               <br>
+               <br>
+               
+Speaking again and again, there are also cases where we have to put LineCast, RayCast in Update () or FixedUpdate (), this is normal, generally try to limit it well, add conditions or check Look carefully at LayerMask.
+               <br><br>
+               <h2>[UPDATE]</h2>
+               <br><br>
+               
+Someone asked me about the performance of direct transform and the Transform cache again, this also has many threads on the network that have test, I do it again. Here is the code to test:
+               <br><br>
+               using UnityEngine;<br>
+               using System.Collections;<br>
+               using System.Diagnostics;<br>
+               using Debug = UnityEngine.Debug;<br>
+               <br>
+               public class TestCacheComponentPerformance : MonoBehaviour<br>
+               {<br>
+                  /// Will use for Loop test in Update<br>
+                  [SerializeField] int runCount = 100000;<br>
+                  /// Use for Editor testing, change the runCount, and press this bool<br>
+                  /// in Inspector to run the test again<br>
+                  [SerializeField] bool test = false;<br>
+                  <br>
+                  void Update ()<br>
+                  {<br>
+                     if (test)<br>
+                     {<br>
+                        RunTest();<br>
+                        test = false;<br>
+                     }<br>
+                  }<br>
+                  <br>
+                  <br>
+                  void RunTest()<br>
+                  {<br>
+                     Stopwatch watch = new Stopwatch();<br>
+                     var cacheTransform = transform;<br>
+                     <br>
+                     // test direct transform<br>
+                     watch.Start();<br>
+                     for (int m = 0; m < runCount; m++)<br>
+                     {<br>
+                        transform.position = Vector3.zero;<br>
+                     }<br>
+                     watch.Stop();<br>
+                     Debug.Log("Direct call : " + watch.ElapsedMilliseconds);<br>
+                     watch.Reset();<br>
+                     <br>
+                     <br>
+                     // test getcomponent<br>
+                     watch.Start();<br>
+                     for (int m = 0; m < runCount; m++)<br>
+                     {<br>
+                        GetComponent<Transform>().position = Vector3.zero;<br>
+                     }<br>
+                     watch.Stop();<br>
+                     Debug.Log("GetComponent call : " + watch.ElapsedMilliseconds);<br>
+                     watch.Reset();<br>
+               
+                     // test cache<br>
+                     watch.Start();<br>
+                     for (int m = 0; m < runCount; m++)<br>
+                     {<br>
+                        cacheTransform.position = Vector3.zero;<br>
+                     }<br>
+                     watch.Stop();<br>
+                     Debug.Log("Cached call : " + watch.ElapsedMilliseconds);<br>
+                     watch.Reset();<br>
+                  }<br><br>
+               }<br><br>
+               <br><br>
+               I do this on a simple PC configuration: <br>
+               CPU : i3-3210 @3.2 GHZ <br>
+               RAM : endless =))) <br>
+               This results (loop 1 million call (1 000 000)), the time unit is milisecond<br>
+
+               <img src="images/3.png" alt="">
+               <br><br>
+               <h3>
+                     3. Work with the parameters of Animator without defining const strings for optimization</h3>
+               <br>
+               <ul>
+                     
+It is also not good to use string dynamically in C #, fragmentation is easy, fragmentation must be done by allocating continuously. For optimization, easy to edit maintenance, you should:
+                     <li>
+                           Define uses frequently used const strings instead of hardcode</li>
+                     <li>
+                           You can define [SerializeField] fields in the script to edit in Inspector</li>
+                     <li>
+                           If you have more hands, write code Editor to read the parameters in the Animator 😉</li>
+               </ul>
+               <br>
+               <img src="serializedfiled.JPG" alt="">
+               <br>
+               
+I personally use [SerializeField] to edit AnimatorParameterName in Inspector, because during the process, these parameters are often changed, not put in code. 😉
+               <br> <br>
+               <h3>
+                     4. Using Resources.Load () too much</h3>
+               <br><br>
+               <ul>
+                     
+Resources.Load () is also a common API when reading demos related to changing skins, loading some assets at runtime. In general, the main purpose of this API is to: reduce the load of assets loaded on RAM, load only the assets needed at runtime, not load them all at once when launching the application. Some things related to Resources such as:
+                  <li>Classify the skin of the character, only load the necessary skins in the gam</li>
+                  <li>Change the texture, model for the in-game object at runtime</li>
+                  <li>Load some data as xml, json, sql ... runtime</li>
+                  <li>….v..v…</li>
+
+               </ul>
+
+               <img src="images/4.png" alt="">
+               <br>
+               <img src="resourceload.JPG" alt="">
+
+               <ul>
+                     A few notes when using this API:
+                     <li>This is also a heavy API, which can "snatch" the frame if you call it halfway through the game.</li>
+                     <li>
+                           All Sprite placed in Resources folder will NOT BE PACK by SpritePacker !! As I mentioned above, the resources in Resources folder will remain the same, Unity doesn't encrypt anything in this, and so does textures and sprites. This is the main reason why people put character skin types in Resources often increasing the drawcall in the game. As shown below, I have an example for 2 cases when I use and do not use the Resources folder to contain sprite (drawcall is 1 vs 4): </li>
+                     <p><img src="images/5.png" alt=""></p>
+                     <p><img src="images/6.png" alt=""></p>
+
+
+                  </ul>
+
+                  <br><br>
+                  
+Saying that doesn't mean completely cutting the use of this API. Above I have mentioned above some uses and some disadvantages of it, depending on which project to use;). You can read more at Unity Learning page for more tips about this Resources folder. Notice, the first sentence in Unity Learning page, they write this:
+Best Practices for the Resources System: Don’t use it.
+Great concept zé hé, also do not indulge in using this Resource too much.
+                  <br><br>
+                  <h3>
+                        5. Which variable in the script is also public</h3>
+                  <br><br>
+                  
+Unity has a strength that allows people to edit public variables in scripts. It is also from that that almost every dev put public for all variables, functions in the script. This is not good, breaking the principles of opening and closing, interface ... in OOP design. Instead, use the [SerializeField] attribute which also allows you to edit the script variables in the Inspector Window. Should use this way
+                  <br><br>
+                  <img src="public.JPG" alt="">
+
+
+            </div>
+            <!-- <div class="cate-post">
+               <a class="btn btn-primary btn-sm" href="http://localhost:8080/blogWebsite/category/category">Category</a> <a class="btn btn-primary btn-sm" href="http://localhost/blogWebsite/category/travel-in-europe">Europe</a> <a class="btn btn-primary btn-sm" href="http://localhost/blogWebsite/category/travel-lists">Travel Lists </a> 			
+            </div> -->
+         </div>
+         <hr>
+         <div class="row">
+            <h3>Posts</h3>
+            <div class="col-md-3">
+               <div class="thumbnail">
+                  <a href="nottouse.html">
+                  <img src="https://seeklogo.com/images/U/unity-logo-F9E960A5C5-seeklogo.com.png">
+                  </a>
+                  <div class="caption">
+                     <h3><a href="nottouse.html">[Unity3D] Things you often see in online demos, but it's best not to use them</a></h3>
+                     <p>[UNITY3D]</p>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-3">
+               <div class="thumbnail">
+                  <a href="nottouse.html">
+                  <img src="https://seeklogo.com/images/U/unity-logo-F9E960A5C5-seeklogo.com.png">
+                  </a>
+                  <div class="caption">
+                     <h3><a href="nottouse.html">[Unity3D] Things you often see in online demos, but it's best not to use them</a></h3>
+                     <p>[UNITY3D]</p>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-3">
+               <div class="thumbnail">
+                  <a href="nottouse.html">
+                  <img src="https://seeklogo.com/images/U/unity-logo-F9E960A5C5-seeklogo.com.png">
+                  </a>
+                  <div class="caption">
+                     <h3><a href="nottouse.html">[Unity3D] Things you often see in online demos, but it's best not to use them</a></h3>
+                     <p>[UNITY3D]</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- <div class="modal fade" id="boxSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Search</h4>
+               </div>
+               <div class="modal-body">
+                  <form action="http://localhost:8080/blogWebsite/" method="GET">
+                     <div class="input-group">
+                        <input type="text" class="form-control" name="s" placeholder="Input your search">
+                        <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div> -->
+
+
+      <footer class="footer-distributed">
+
+			<div class="footer-left">
+
+				<h3>IT<span>Blog</span></h3>
+
+				<p class="footer-links">
+					<a href="index.html">Home</a>
+					·
+					<a href="#">Blog</a>
+					·
+					<a href="#">Pricing</a>
+					·
+					<a href="#">About</a>
+					·
+					<a href="#">Faq</a>
+					·
+					<a href="#">Contact</a>
+				</p>
+
+				<p class="footer-company-name">Company Name &copy; 2015</p>
+			</div>
+
+			<div class="footer-center">
+
+				<div>
+					<i class="fa fa-map-marker"></i>
+					<p><span>21 Revolution Street</span> Paris, France</p>
+				</div>
+
+				<div>
+					<i class="fa fa-phone"></i>
+					<p>+1 555 123456</p>
+				</div>
+
+				<div>
+					<i class="fa fa-envelope"></i>
+					<p><a href="mailto:support@company.com">support@company.com</a></p>
+				</div>
+
+			</div>
+
+			<div class="footer-right">
+
+				<p class="footer-company-about">
+					<span>About the company</span>
+					Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
+				</p>
+
+				<div class="footer-icons">
+
+					<a href="#"><i class="fa fa-facebook"></i></a>
+					<a href="#"><i class="fa fa-twitter"></i></a>
+					<a href="#"><i class="fa fa-linkedin"></i></a>
+					<a href="#"><i class="fa fa-github"></i></a>
+
+				</div>
+
+			</div>
+
+		</footer>
+
+
+
+      <script src="http://localhost:8080/blogWebsite/admin/js/jquery.min.js"></script>
+      <script src="http://localhost:8080/blogWebsite/admin/bootstrap/js/bootstrap.min.js"></script>
+   </body>
+</html>

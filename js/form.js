@@ -1,4 +1,4 @@
-$_DOMAIN = 'index.html';
+$_DOMAIN = 'http://localhost/blogWebsite/admin/';
 
 // Login
 $('#formSignin button').on('click', function() {
@@ -101,7 +101,7 @@ $('#formAddCate button').on('click', function() {
 	{
 		$('#formAddCate .alert').removeClass('hidden');
 		$('#formAddCate .alert').html('please fil in all information.');
-		$this.html('create');
+		$this.html('Tạo');
 	}
 	// Ngược lại
 	else
@@ -119,11 +119,11 @@ $('#formAddCate button').on('click', function() {
 			}, success : function(data) {
 				$('#formAddCate .alert').removeClass('hidden');
 				$('#formAddCate .alert').html(data);
-				$this.html('create');
+				$this.html('Tạo');
 			}, error : function() {
 				$('#formAddCate .alert').removeClass('hidden');
-				$('#formAddCate .alert').html('cannot create new category now, retry later.');
-				$this.html('create');
+				$('#formAddCate .alert').html('Không thể tạo chuyên mục vào lúc này, hãy thử lại sau.');
+				$this.html('Tạo');
 			}
 		});
 	}
@@ -432,7 +432,7 @@ $('#formUpImg').submit(function(e) {
 
 // Xoá nhiều hình ảnh cùng lúc
 $('#del_img_list').on('click', function() {
-	$confirm = confirm(' Are you sure to delete these images?');
+	$confirm = confirm('Bạn có chắc chắn muốn xoá các hình ảnh đã chọn không?');
 	if ($confirm == true)
 	{
 		$id_img = [];
@@ -443,7 +443,7 @@ $('#del_img_list').on('click', function() {
 
 		if ($id_img.length === 0)
 		{
-			alert('please choose image.');
+			alert('Vui lòng chọn ít nhất một hình ảnh.');
 		}
 		else
 		{
@@ -457,7 +457,7 @@ $('#del_img_list').on('click', function() {
 				success : function(data) {
 					location.reload();
 				}, error : function() {
-					alert('something wrong, retry later.');
+					alert('Đã có lỗi xảy ra, hãy thử lại.');
 				}
 			});
 		}
@@ -470,7 +470,7 @@ $('#del_img_list').on('click', function() {
 
 // Xoá ảnh chỉ định
 $('.del-img').on('click', function() {
-	$confirm = confirm('are you sure to delete this image?');
+	$confirm = confirm('Bạn có chắc chắn muốn xoá ảnh này không?');
 	if ($confirm == true)
 	{
 		$id_img = $(this).attr('data-id');
@@ -513,7 +513,7 @@ $('#formAddPost button').on('click', function() {
 				$('#formAddPost .alert').html(data);
 			}, error : function() {
 				$('#formAddPost .alert').removeClass('hidden');
-				$('#formAddPost .alert').html('something wrong, retry later.');
+				$('#formAddPost .alert').html('Đã có lỗi xảy ra, hãy thử lại.');
 			}
 		});
 	}
@@ -638,7 +638,7 @@ $('#formEditPost button').on('click', function() {
 
 // Xoá nhiều bài viết cùng lúc
 $('#del_post_list').on('click', function() {
-	$confirm = confirm('are you sure to delete selected posted?');
+	$confirm = confirm('Bạn có chắc chắn muốn xoá các bài viết đã chọn không?');
 	if ($confirm == true)
 	{
 		$id_post = [];
@@ -649,7 +649,7 @@ $('#del_post_list').on('click', function() {
 
 		if ($id_post.length === 0)
 		{
-			alert('please choose post.');
+			alert('Vui lòng chọn ít nhất một bài viết.');
 		}
 		else
 		{
@@ -663,7 +663,7 @@ $('#del_post_list').on('click', function() {
 				success : function(data) {
 					location.reload();
 				}, error : function() {
-					alert('something wrong, retry later.');
+					alert('Đã có lỗi xảy ra, hãy thử lại.');
 				}
 			});
 		}
@@ -676,7 +676,7 @@ $('#del_post_list').on('click', function() {
 
 // Xoá bài viết chỉ định trong bảng danh sách
 $('.del-post-list').on('click', function() {
-	$confirm = confirm('are you sure to delete this post?');
+	$confirm = confirm('Bạn có chắc chắn muốn xoá bài viết này không?');
 	if ($confirm == true)
 	{
 		$id_post = $(this).attr('data-id');
@@ -701,7 +701,7 @@ $('.del-post-list').on('click', function() {
 
 // Xoá bài viết chỉ định trong trang chỉnh sửa
 $('#del_post').on('click', function() {
-	$confirm = confirm('are you sure to delete this post?');
+	$confirm = confirm('Bạn có chắc chắn muốn xoá bài viết này không?');
 	if ($confirm == true)
 	{
 		$id_post = $(this).attr('data-id');
@@ -736,11 +736,11 @@ $('#formStatusWeb button').on('click', function() {
 			action : 'stt_web'
 		}, success : function() {
 			$('#formStatusWeb .alert').attr('class', 'alert alert-success');
-			$('#formStatusWeb .alert').html('change sucessfully.');
+			$('#formStatusWeb .alert').html('Thay đổi thành công.');
 			location.reload();
 		}, error : function() {
 			$('#formStatusWeb .alert').removeClass('hidden');
-			$('#formStatusWeb .alert').html('something wrong, retry later.');
+			$('#formStatusWeb .alert').html('Đã có lỗi xảy ra, hãy thử lại.');
 		}
 	});
 });
@@ -761,11 +761,11 @@ $('#formInfoWeb button').on('click', function() {
 			action : 'info_web'
 		}, success : function() {
 			$('#formInfoWeb .alert').attr('class', 'alert alert-success');
-			$('#formInfoWeb .alert').html('change sucessfully.');
+			$('#formInfoWeb .alert').html('Thay đổi thành công.');
 			location.reload();
 		}, error : function() {
 			$('#formInfoWeb .alert').removeClass('hidden');
-			$('#formInfoWeb .alert').html('something wrong, retry later.');
+			$('#formInfoWeb .alert').html('Đã có lỗi xảy ra, hãy thử lại.');
 		}
 
 	});
@@ -796,7 +796,7 @@ $('#formAddAcc button').on('click', function() {
 				$('#formAddAcc .alert').html(data);
 			}, error : function() {
 				$('#formAddAcc .alert').removeClass('hidden');
-				$('#formAddAcc .alert').html('something wrong, retry later.');
+				$('#formAddAcc .alert').html('Đã có lỗi xảy ra, hãy thử lại.');
 			}  
 		});
 	}
@@ -804,7 +804,7 @@ $('#formAddAcc button').on('click', function() {
 
 // Khoá nhiều tài khoản cùng lúc
 $('#lock_acc_list').on('click', function() {
-	$confirm = confirm('are you sure to lock selected account??');
+	$confirm = confirm('Bạn có chắc chắn muốn khoá các tài khoản đã chọn không?');
 	if ($confirm == true)
 	{
 		$id_acc = [];
@@ -815,7 +815,7 @@ $('#lock_acc_list').on('click', function() {
 
 		if ($id_acc.length === 0)
 		{
-			alert('please choose account.');
+			alert('Vui lòng chọn ít nhất một tài khoản.');
 		}
 		else
 		{
@@ -829,7 +829,7 @@ $('#lock_acc_list').on('click', function() {
 				success : function(data) {
 					location.reload();
 				}, error : function() {
-					alert('something wrong, retry later.');
+					alert('Đã có lỗi xảy ra, hãy thử lại.');
 				}
 			});
 		}
@@ -842,7 +842,7 @@ $('#lock_acc_list').on('click', function() {
 
 // Khoá tài khoản chỉ định trong bảng danh sách
 $('.lock-acc-list').on('click', function() {
-	$confirm = confirm('are you sure to locked this account?');
+	$confirm = confirm('Bạn có chắc chắn muốn khoá tài khoản này không?');
 	if ($confirm == true)
 	{
 		$id_acc = $(this).attr('data-id');
@@ -867,7 +867,7 @@ $('.lock-acc-list').on('click', function() {
 
 // Mở khoá nhiều tài khoản cùng lúc
 $('#unlock_acc_list').on('click', function() {
-	$confirm = confirm('are you sure to unlocked selected accounts?');
+	$confirm = confirm('Bạn có chắc chắn muốn mở khoá các tài khoản đã chọn không?');
 	if ($confirm == true)
 	{
 		$id_acc = [];
@@ -878,7 +878,7 @@ $('#unlock_acc_list').on('click', function() {
 
 		if ($id_acc.length === 0)
 		{
-			alert('please choose account.');
+			alert('Vui lòng chọn ít nhất một tài khoản.');
 		}
 		else
 		{
@@ -892,7 +892,7 @@ $('#unlock_acc_list').on('click', function() {
 				success : function(data) {
 					location.reload();
 				}, error : function() {
-					alert('something wrong, retry later.');
+					alert('Đã có lỗi xảy ra, hãy thử lại.');
 				}
 			});
 		}
@@ -905,7 +905,7 @@ $('#unlock_acc_list').on('click', function() {
 
 // Mở tài khoản chỉ định trong bảng danh sách
 $('.unlock-acc-list').on('click', function() {
-	$confirm = confirm('are you sure to unlocked this accounts?');
+	$confirm = confirm('Bạn có chắc chắn muốn mở khoá tài khoản này không?');
 	if ($confirm == true)
 	{
 		$id_acc = $(this).attr('data-id');
@@ -930,7 +930,7 @@ $('.unlock-acc-list').on('click', function() {
 
 // Xoá nhiều tài khoản cùng lúc
 $('#del_acc_list').on('click', function() {
-	$confirm = confirm('are you sure to delecte selected accounts?');
+	$confirm = confirm('Bạn có chắc chắn muốn xoá các tài khoản đã chọn không?');
 	if ($confirm == true)
 	{
 		$id_acc = [];
@@ -941,7 +941,7 @@ $('#del_acc_list').on('click', function() {
 
 		if ($id_acc.length === 0)
 		{
-			alert('please choose account.');
+			alert('Vui lòng chọn ít nhất một tài khoản.');
 		}
 		else
 		{
@@ -955,7 +955,7 @@ $('#del_acc_list').on('click', function() {
 				success : function(data) {
 					location.reload();
 				}, error : function() {
-					alert('something wrong, retry later.');
+					alert('Đã có lỗi xảy ra, hãy thử lại.');
 				}
 			});
 		}
@@ -968,7 +968,7 @@ $('#del_acc_list').on('click', function() {
 
 // Xoá tài khoản chỉ định trong bảng danh sách
 $('.del-acc-list').on('click', function() {
-	$confirm = confirm('are you sure to delecte selected account?');
+	$confirm = confirm('Bạn có chắc chắn muốn xoá tài khoản này không?');
 	if ($confirm == true)
 	{
 		$id_acc = $(this).attr('data-id');
@@ -1052,7 +1052,7 @@ $('#formUpAvt').submit(function(e) {
                 error: function() {
                     $('#formUpAvt button[type=submit]').html('Upload');
                     $('#formUpAvt .alert-danger').removeClass('hidden');  
-                    $('#formUpAvt .alert-danger').html('Can not upload images now');
+                    $('#formUpAvt .alert-danger').html('Không thể upload hình ảnh vào lúc này, hãy thử lại sau.');
                 },
                 resetForm: true
             }); 
