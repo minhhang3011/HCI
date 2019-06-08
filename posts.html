@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8"/>
+	<title>IT Blogs</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+
+	<!-- Liên kết Bootstrap CSS -->
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/> 
+	
+	<!-- Liên kết thư viện jQuery -->
+	<script src="js/jquery.min.js"></script>	   
+	  
+</head>
+<body>
+
+
+	<!-- NAVBAR -->
+	
+			<nav class="navbar navbar-default" role="navigation">
+		  		<div class="container-fluid">
+		    		<div class="navbar-header">
+		      			 	<a class="navbar-brand" href="fronend.html">IT Blogs</a>	<a class="navbar-brand" href="index.html"> Author</a>
+		    		</div><!-- div.navbar-header -->
+				</div><!-- div.container-fluid -->
+			</nav>
+			<div class="col-md-3 sidebar">
+	<ul class="list-group">
+		<li class="list-group-item">
+			<div class="media">
+				<a class="pull-left">
+				    <img class="media-object" src="
+								images/avatar.jpg	    " alt="Avatar of Minh Hằng" width="64" height="64">
+				</a>
+				<div class="media-body">
+				    <h4 class="media-heading">Minh Hằng</h4>
+				    <span class="label label-success">Author</span>				</div>
+			</div>
+		</li>
+		<a class="list-group-item active" href="index.html">
+			<span class="glyphicon glyphicon-dashboard"></span> Dashboard
+		</a>
+		<a class="list-group-item" href="profile.html">
+			<span class="glyphicon glyphicon-user"></span> Profile
+		</a>
+		<a class="list-group-item" href="posts.html">
+			<span class="glyphicon glyphicon-edit"></span> Posts
+		</a>	
+		<a class="list-group-item" href="images.html">
+			<span class="glyphicon glyphicon-picture"></span> Images
+		</a>
+		<a class="list-group-item" href="frontend">
+			<span class="glyphicon glyphicon-off"></span> Signout
+	</ul><!-- ul.list-group -->
+</div><!-- div.sidebar --><div class="col-md-9 content">
+	<h3>Posts</h3>
+            <a href="addpost.html" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span> Add
+            </a> 
+            <a href="posts.html" class="btn btn-default">
+                <span class="glyphicon glyphicon-repeat"></span> Reload
+            </a> 
+            <a class="btn btn-danger" id="del_post_list">
+                <span class="glyphicon glyphicon-trash"></span> Delete
+            </a> 
+        
+                <p>
+                    <form method="POST" id="formSearchPost" onsubmit="return false;">
+                        <div class="input-group">         
+                            <input type="text" class="form-control" id="kw_search_post" placeholder=" ID, Title, ...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                </p>
+            
+                <div class="table-responsive" id="list_post">
+                    <table class="table table-striped list">
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td><strong>ID</strong></td>
+                            <td><strong>Title</strong></td>
+                            <td><strong>Status</strong></td>
+                            <td><strong>Category</strong></td>
+            <td><strong>Author</strong></td>
+                            <td><strong>Tools</strong></td>
+                        </tr>
+            
+                        <tr>
+                            <td><input type="checkbox" name="id_post[]" value="20"></td>
+                            <td>20</td>
+                            <td style="width: 30%;"><a href="editpost.html">Tìm hiểu **this** context trong Javascript</a></td>
+                            <td><label class="label label-success">Publish</label></td>
+                            <td>Category, Java, introduction</td>
+                            <td>0</td>
+                    
+                            <td>
+                                <a href="editpost.html" class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </a>
+                                <a class="btn btn-danger btn-sm del-post-list" data-id="20">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+    
+                
+                    </table>
+            <div class="btn-group" id="paging_post"><a class="btn btn-default active">1</a></div>
+                </div>
+            </div><!-- div.content -->	<!-- Liên kết thư viện jQuery Form -->
+	<script src="js/jquery.form.min.js"></script>	
+
+	<!-- Liên kết thư viện hàm xử lý form -->
+	<script src="bootstrap/js/form.js"></script>
+
+	<!-- Liên kết thư viện CKEditor -->
+	<script src="ckeditor/ckeditor.js"></script>
+
+	<script>$(".sidebar ul a:eq(1)").removeClass("active");</script><script>$(".sidebar ul a:eq(3)").addClass("active");</script></body>
+</html>

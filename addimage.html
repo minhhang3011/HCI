@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8"/>
+	<title>IT Blogs</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+
+	<!-- Liên kết Bootstrap CSS -->
+	<link rel="stylesheet" href = "bootstrap/css/bootstrap.min.css"/> 
+	
+	<!-- Liên kết thư viện jQuery -->
+	<script src="js/jquery.min.js"></script>	   
+	
+</head>
+<body>
+
+
+	<!-- NAVBAR -->
+	
+			<nav class="navbar navbar-default" role="navigation">
+		  		<div class="container-fluid">
+		    		<div class="navbar-header">
+                        <a class="navbar-brand" href="fronend.html">IT Blogs</a>	<a class="navbar-brand" href="index.html"> Author</a>
+		    		</div><!-- div.navbar-header -->
+				</div><!-- div.container-fluid -->
+			</nav>
+			<div class="col-md-3 sidebar">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="media">
+                            <a class="pull-left">
+                                <img class="media-object" src="
+                                            images/avatar.jpg	    " alt="Avatar of Minh Hằng" width="64" height="64">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">Minh Hằng</h4>
+                                <span class="label label-success">Author</span>				</div>
+                        </div>
+                    </li>
+                    <a class="list-group-item active" href="index.html">
+                        <span class="glyphicon glyphicon-dashboard"></span> Dashboard
+                    </a>
+                    <a class="list-group-item" href="profile.html">
+                        <span class="glyphicon glyphicon-user"></span> Profile
+                    </a>
+                    <a class="list-group-item" href="posts.html">
+                        <span class="glyphicon glyphicon-edit"></span> Posts
+                    </a>	
+                    <a class="list-group-item" href="images.html">
+                        <span class="glyphicon glyphicon-picture"></span> Images
+                    </a>
+                    
+                            
+                                <a class="list-group-item" href="frontend">
+                        <span class="glyphicon glyphicon-off"></span> Signout
+                </ul><!-- ul.list-group -->
+</div><!-- div.sidebar --><div class="col-md-9 content">
+	<h3>Image</h3>
+                <a href="images.html" class="btn btn-default">
+                    <span class="glyphicon glyphicon-arrow-left"></span> Back
+                </a> 
+            
+                <p class="form-up-img">
+                    <div class="alert alert-info">Maximum update is 20 images.Each Image is small than 50MB.</div>
+                    <form action="    "method="POST" id="formUpImg" enctype="multipart/form-data" onsubmit="return false;">
+                        <div class="form-group">
+                            <label>Choose</label>
+                            <input type="file" class="form-control" accept="" name="img_up[]" multiple="true" id="img_up" onchange="preUpImg();">
+                        </div>
+                        <div class="form-group box-pre-img hidden">
+                            <p><strong>Image demo</strong></p>
+                        </div>
+                        <div class="form-group hidden box-progress-bar">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                            <a href = "addimage.html"><button class="btn btn-default" type="reset">ReChoose </button> </a>
+                        </div>
+                        <div class="alert alert-danger hidden"></div>
+                    </form>
+                </p>
+            </div><!-- div.content -->	<!-- Liên kết thư viện jQuery Form -->
+	<script src="js/jquery.form.min.js"></script>	
+
+	<!-- Liên kết thư viện hàm xử lý form -->
+	<script src="js/form.js"></script>
+
+	<!-- Liên kết thư viện CKEditor -->
+	<script src="ckeditor/ckeditor.js"></script>
+
+	<script>$(".sidebar ul a:eq(1)").removeClass("active");</script><script>$(".sidebar ul a:eq(4)").addClass("active");</script></body>
+</html>
